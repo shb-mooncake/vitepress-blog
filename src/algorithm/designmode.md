@@ -28,6 +28,9 @@ footer:
 copyright:
 ---
 
+<!-- more -->
+
+
 ## 六大原则：
 
 - 依赖倒置原则(Dependence Inversion Principle)：高层(业务层)不应该直接调用底层(基础层)模块
