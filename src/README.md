@@ -3,7 +3,7 @@ home: true
 layout: BlogHome
 icon: home
 title: 博客
-heroImage: /logo.svg
+heroImage: /logo.jpg
 heroText: 前端技术分享
 heroFullScreen: false
 tagline: 

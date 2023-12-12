@@ -13,3 +13,4 @@ icon: laptop-code
 - [前端设计模式-单例模式实践](singlepattern.md)
 - [前端设计模式-代理模式实践](proxypattern.md)
 - [前端设计模式-发布-订阅模式实践](observerpattern.md)
+- [前端设计模式-模板方法模式实践](templatepattern.md)

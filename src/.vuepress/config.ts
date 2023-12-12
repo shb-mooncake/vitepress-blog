@@ -5,7 +5,7 @@ export default defineUserConfig({
   base: "/",
 
   lang: "zh-CN",
-  title: "sunhaibo",
+  title: "moonandcake",
   description: "",
 
   theme,
