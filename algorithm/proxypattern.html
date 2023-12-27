@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="VuePress 2.0.0-rc.0" />
+    <meta name="theme" content="VuePress Theme Hope 2.0.0-rc.2" />
+    <style>
+      html {
+        background: var(--bg-color, #fff);
+      }
+
+      html[data-theme="dark"] {
+        background: var(--bg-color, #1d1e1f);
+      }
+
+      body {
+        background: var(--bg-color);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem("vuepress-theme-hope-scheme");
+      const systemDarkMode =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      if (userMode === "dark" || (userMode !== "light" && systemDarkMode)) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script>
+    <meta property="og:url" content="https://mister-hope.github.io/algorithm/proxypattern.html"><meta property="og:site_name" content="moonandcake"><meta property="og:title" content="代理模式-实践"><meta property="og:description" content="代理模式 定义：为一个对象提供一个代用品或占位符，以便控制对它的访问 前端代理模式应用 请求代理 当发起请求时，可以代理请求在转发请求之前执行一些额外的操作，或者在转发请求之后做一些额外的操作 // 定义目标对象接口 class Subject { request() { // 处理请求 } } // 定义具体目标对象类 class RealSubje..."><meta property="og:type" content="article"><meta property="og:locale" content="zh-CN"><meta property="og:updated_time" content="2023-12-12T07:59:44.000Z"><meta property="article:author" content="moonandcake"><meta property="article:published_time" content="2023-12-11T00:00:00.000Z"><meta property="article:modified_time" content="2023-12-12T07:59:44.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"代理模式-实践","image":[""],"datePublished":"2023-12-11T00:00:00.000Z","dateModified":"2023-12-12T07:59:44.000Z","author":[{"@type":"Person","name":"moonandcake"}]}</script><title>代理模式-实践 | moonandcake</title><meta name="description" content="代理模式 定义：为一个对象提供一个代用品或占位符，以便控制对它的访问 前端代理模式应用 请求代理 当发起请求时，可以代理请求在转发请求之前执行一些额外的操作，或者在转发请求之后做一些额外的操作 // 定义目标对象接口 class Subject { request() { // 处理请求 } } // 定义具体目标对象类 class RealSubje...">
+    <link rel="preload" href="/assets/style-1VQGsLuT.css" as="style"><link rel="stylesheet" href="/assets/style-1VQGsLuT.css">
+    <link rel="modulepreload" href="/assets/app-dnYTmmMA.js"><link rel="modulepreload" href="/assets/proxypattern.html-_VKXxNn4.js"><link rel="modulepreload" href="/assets/plugin-vue_export-helper-x3n3nnut.js"><link rel="modulepreload" href="/assets/proxypattern.html-kj3Yaocb.js">
+    <link rel="prefetch" href="/assets/index.html-ydoY-34B.js" as="script"><link rel="prefetch" href="/assets/index.html-VaVbLyMd.js" as="script"><link rel="prefetch" href="/assets/performance.html-4FP8jhfh.js" as="script"><link rel="prefetch" href="/assets/index.html-XPUlV7OI.js" as="script"><link rel="prefetch" href="/assets/designmode.html-4Uy1kxjj.js" as="script"><link rel="prefetch" href="/assets/observerpattern.html--pyDBKcA.js" as="script"><link rel="prefetch" href="/assets/singlepattern.html-xDJZyTBQ.js" as="script"><link rel="prefetch" href="/assets/strategypattern.html-_UhE4OxD.js" as="script"><link rel="prefetch" href="/assets/templatepattern.html-AURF8vSl.js" as="script"><link rel="prefetch" href="/assets/404.html-2z0_dERV.js" as="script"><link rel="prefetch" href="/assets/index.html-XtyiQpHk.js" as="script"><link rel="prefetch" href="/assets/index.html-r76Y6n-K.js" as="script"><link rel="prefetch" href="/assets/index.html-CPpTVZtb.js" as="script"><link rel="prefetch" href="/assets/index.html-KQlVNYQs.js" as="script"><link rel="prefetch" href="/assets/index.html-y9IAXS0x.js" as="script"><link rel="prefetch" href="/assets/index.html-FIZR59HM.js" as="script"><link rel="prefetch" href="/assets/index.html-jUqEuO6j.js" as="script"><link rel="prefetch" href="/assets/performance.html-5WELQZjm.js" as="script"><link rel="prefetch" href="/assets/index.html-a0qBXpKC.js" as="script"><link rel="prefetch" href="/assets/designmode.html-1Kd_h88d.js" as="script"><link rel="prefetch" href="/assets/observerpattern.html-ZKaZIujm.js" as="script"><link rel="prefetch" href="/assets/singlepattern.html-258mpS1n.js" as="script"><link rel="prefetch" href="/assets/strategypattern.html-3TZhBUd0.js" as="script"><link rel="prefetch" href="/assets/templatepattern.html-n_OY78D8.js" as="script"><link rel="prefetch" href="/assets/404.html-VxocunGM.js" as="script"><link rel="prefetch" href="/assets/index.html-zjMtSSCd.js" as="script"><link rel="prefetch" href="/assets/index.html-pQNqyBD6.js" as="script"><link rel="prefetch" href="/assets/index.html-eDLDiZij.js" as="script"><link rel="prefetch" href="/assets/index.html-LdoB4qBE.js" as="script"><link rel="prefetch" href="/assets/index.html-Gn5v7gJk.js" as="script"><link rel="prefetch" href="/assets/photoswipe.esm-i2ohwMnJ.js" as="script">
+  </head>
+  <body>
+    <div id="app"><!--[--><!--[--><!--[--><span tabindex="-1"></span><a href="#main-content" class="vp-skip-link sr-only">跳至主要內容</a><!--]--><div class="theme-container has-toc"><!--[--><header id="navbar" class="vp-navbar"><div class="vp-navbar-start"><button type="button" class="vp-toggle-sidebar-button" title="Toggle Sidebar"><span class="icon"></span></button><!--[--><!----><!--]--><!--[--><a class="vp-link vp-brand vp-brand" href="/"><img class="vp-nav-logo" src="https://theme-hope-assets.vuejs.press/logo.svg" alt="moonandcake"><!----><span class="vp-site-name hide-in-pad">moonandcake</span></a><!--]--><!--[--><!----><!--]--></div><div class="vp-navbar-center"><!--[--><!----><!--]--><!--[--><nav class="vp-nav-links"><div class="nav-item hide-in-mobile"><a aria-label="博客" class="vp-link nav-link nav-link" href="/"><span class="font-icon icon fa-fw fa-sm fas fa-home" style=""></span>博客<!----></a></div><div class="nav-item hide-in-mobile"><a aria-label="性能优化" class="vp-link nav-link nav-link" href="/SEO/"><span class="font-icon icon fa-fw fa-sm fas fa-laptop-code" style=""></span>性能优化<!----></a></div><div class="nav-item hide-in-mobile"><a aria-label="设计模式" class="vp-link nav-link active nav-link active" href="/algorithm/"><span class="font-icon icon fa-fw fa-sm fas fa-laptop-code" style=""></span>设计模式<!----></a></div></nav><!--]--><!--[--><!----><!--]--></div><div class="vp-navbar-end"><!--[--><!----><!--]--><!--[--><!----><div class="nav-item vp-repo"><a class="vp-repo-link" href="https://github.com/vuepress-theme-hope/vuepress-theme-hope" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" class="icon github-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="github icon" style="width:1.25rem;height:1.25rem;vertical-align:middle;"><path d="M511.957 21.333C241.024 21.333 21.333 240.981 21.333 512c0 216.832 140.544 400.725 335.574 465.664 24.49 4.395 32.256-10.07 32.256-23.083 0-11.69.256-44.245 0-85.205-136.448 29.61-164.736-64.64-164.736-64.64-22.315-56.704-54.4-71.765-54.4-71.765-44.587-30.464 3.285-29.824 3.285-29.824 49.195 3.413 75.179 50.517 75.179 50.517 43.776 75.008 114.816 53.333 142.762 40.79 4.523-31.66 17.152-53.377 31.19-65.537-108.971-12.458-223.488-54.485-223.488-242.602 0-53.547 19.114-97.323 50.517-131.67-5.035-12.33-21.93-62.293 4.779-129.834 0 0 41.258-13.184 134.912 50.346a469.803 469.803 0 0 1 122.88-16.554c41.642.213 83.626 5.632 122.88 16.554 93.653-63.488 134.784-50.346 134.784-50.346 26.752 67.541 9.898 117.504 4.864 129.834 31.402 34.347 50.474 78.123 50.474 131.67 0 188.586-114.73 230.016-224.042 242.09 17.578 15.232 33.578 44.672 33.578 90.454v135.85c0 13.142 7.936 27.606 32.854 22.87C862.25 912.597 1002.667 728.747 1002.667 512c0-271.019-219.648-490.667-490.71-490.667z"></path></svg></a></div><div class="nav-item hide-in-mobile"><button type="button" id="appearance-switch"><svg xmlns="http://www.w3.org/2000/svg" class="icon auto-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="auto icon" style="display:block;"><path d="M512 992C246.92 992 32 777.08 32 512S246.92 32 512 32s480 214.92 480 480-214.92 480-480 480zm0-840c-198.78 0-360 161.22-360 360 0 198.84 161.22 360 360 360s360-161.16 360-360c0-198.78-161.22-360-360-360zm0 660V212c165.72 0 300 134.34 300 300 0 165.72-134.28 300-300 300z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon dark-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="dark icon" style="display:none;"><path d="M524.8 938.667h-4.267a439.893 439.893 0 0 1-313.173-134.4 446.293 446.293 0 0 1-11.093-597.334A432.213 432.213 0 0 1 366.933 90.027a42.667 42.667 0 0 1 45.227 9.386 42.667 42.667 0 0 1 10.24 42.667 358.4 358.4 0 0 0 82.773 375.893 361.387 361.387 0 0 0 376.747 82.774 42.667 42.667 0 0 1 54.187 55.04 433.493 433.493 0 0 1-99.84 154.88 438.613 438.613 0 0 1-311.467 128z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon light-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="light icon" style="display:none;"><path d="M952 552h-80a40 40 0 0 1 0-80h80a40 40 0 0 1 0 80zM801.88 280.08a41 41 0 0 1-57.96-57.96l57.96-58a41.04 41.04 0 0 1 58 58l-58 57.96zM512 752a240 240 0 1 1 0-480 240 240 0 0 1 0 480zm0-560a40 40 0 0 1-40-40V72a40 40 0 0 1 80 0v80a40 40 0 0 1-40 40zm-289.88 88.08-58-57.96a41.04 41.04 0 0 1 58-58l57.96 58a41 41 0 0 1-57.96 57.96zM192 512a40 40 0 0 1-40 40H72a40 40 0 0 1 0-80h80a40 40 0 0 1 40 40zm30.12 231.92a41 41 0 0 1 57.96 57.96l-57.96 58a41.04 41.04 0 0 1-58-58l58-57.96zM512 832a40 40 0 0 1 40 40v80a40 40 0 0 1-80 0v-80a40 40 0 0 1 40-40zm289.88-88.08 58 57.96a41.04 41.04 0 0 1-58 58l-57.96-58a41 41 0 0 1 57.96-57.96z"></path></svg></button></div><!----><!--]--><!--[--><!----><!--]--><button type="button" class="vp-toggle-navbar-button" aria-label="Toggle Navbar" aria-expanded="false" aria-controls="nav-screen"><span><span class="vp-top"></span><span class="vp-middle"></span><span class="vp-bottom"></span></span></button></div></header><!----><!--]--><!----><div class="toggle-sidebar-wrapper"><span class="arrow start"></span></div><aside id="sidebar" class="vp-sidebar"><!--[--><!----><!--]--><ul class="vp-sidebar-links"><li><!--[--><a aria-label="博客" class="vp-link nav-link vp-sidebar-link vp-sidebar-page nav-link vp-sidebar-link vp-sidebar-page" href="/"><span class="font-icon icon fa-fw fa-sm fas fa-home" style=""></span>博客<!----></a><ul class="vp-sidebar-sub-headers"></ul><!--]--></li><li><section class="vp-sidebar-group"><p class="vp-sidebar-heading clickable"><span class="font-icon icon fa-fw fa-sm fas fa-book" style=""></span><a aria-label="性能优化" class="vp-link nav-link vp-sidebar-title nav-link vp-sidebar-title" href="/SEO/"><!---->性能优化<!----></a><!----></p><ul class="vp-sidebar-links"><li><!--[--><a aria-label="浏览器渲染流程及优化" class="vp-link nav-link vp-sidebar-link vp-sidebar-page nav-link vp-sidebar-link vp-sidebar-page" href="/SEO/performance.html"><span class="font-icon icon fa-fw fa-sm fas fa-file" style=""></span>浏览器渲染流程及优化<!----></a><ul class="vp-sidebar-sub-headers"></ul><!--]--></li></ul></section></li><li><section class="vp-sidebar-group"><p class="vp-sidebar-heading clickable active"><span class="font-icon icon fa-fw fa-sm fas fa-book" style=""></span><a aria-label="设计模式" class="vp-link nav-link active vp-sidebar-title nav-link active vp-sidebar-title" href="/algorithm/"><!---->设计模式<!----></a><!----></p><ul class="vp-sidebar-links"><li><!--[--><a aria-label="代理模式-实践" class="vp-link nav-link active vp-sidebar-link vp-sidebar-page active nav-link active vp-sidebar-link vp-sidebar-page active" href="/algorithm/proxypattern.html"><span class="font-icon icon fa-fw fa-sm fas fa-file" style=""></span>代理模式-实践<!----></a><ul class="vp-sidebar-sub-headers"><li class="vp-sidebar-sub-header"><a aria-label="代理模式" class="vp-link nav-link vp-sidebar-link vp-heading nav-link vp-sidebar-link vp-heading" href="/algorithm/proxypattern.html#代理模式"><!---->代理模式<!----></a><ul class="vp-sidebar-sub-headers"></ul></li><li class="vp-sidebar-sub-header"><a aria-label="前端代理模式应用" class="vp-link nav-link vp-sidebar-link vp-heading nav-link vp-sidebar-link vp-heading" href="/algorithm/proxypattern.html#前端代理模式应用"><!---->前端代理模式应用<!----></a><ul class="vp-sidebar-sub-headers"><li class="vp-sidebar-sub-header"><a aria-label="请求代理" class="vp-link nav-link vp-sidebar-link vp-heading nav-link vp-sidebar-link vp-heading" href="/algorithm/proxypattern.html#请求代理"><!---->请求代理<!----></a><ul class="vp-sidebar-sub-headers"></ul></li><li class="vp-sidebar-sub-header"><a aria-label="图片懒加载" class="vp-link nav-link vp-sidebar-link vp-heading nav-link vp-sidebar-link vp-heading" href="/algorithm/proxypattern.html#图片懒加载"><!---->图片懒加载<!----></a><ul class="vp-sidebar-sub-headers"></ul></li><li class="vp-sidebar-sub-header"><a aria-label="数据缓存代理" class="vp-link nav-link vp-sidebar-link vp-heading nav-link vp-sidebar-link vp-heading" href="/algorithm/proxypattern.html#数据缓存代理"><!---->数据缓存代理<!----></a><ul class="vp-sidebar-sub-headers"></ul></li><li class="vp-sidebar-sub-header"><a aria-label="ES6的Proxy" class="vp-link nav-link vp-sidebar-link vp-heading nav-link vp-sidebar-link vp-heading" href="/algorithm/proxypattern.html#es6的proxy"><!---->ES6的Proxy<!----></a><ul class="vp-sidebar-sub-headers"></ul></li></ul></li><li class="vp-sidebar-sub-header"><a aria-label="总结" class="vp-link nav-link vp-sidebar-link vp-heading nav-link vp-sidebar-link vp-heading" href="/algorithm/proxypattern.html#总结"><!---->总结<!----></a><ul class="vp-sidebar-sub-headers"></ul></li></ul><!--]--></li><li><!--[--><a aria-label="前端设计模式" class="vp-link nav-link vp-sidebar-link vp-sidebar-page nav-link vp-sidebar-link vp-sidebar-page" href="/algorithm/designmode.html"><span class="font-icon icon fa-fw fa-sm fas fa-file" style=""></span>前端设计模式<!----></a><ul class="vp-sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a aria-label="单例模式-实践" class="vp-link nav-link vp-sidebar-link vp-sidebar-page nav-link vp-sidebar-link vp-sidebar-page" href="/algorithm/singlepattern.html"><span class="font-icon icon fa-fw fa-sm fas fa-file" style=""></span>单例模式-实践<!----></a><ul class="vp-sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a aria-label="发布-订阅模式-实践" class="vp-link nav-link vp-sidebar-link vp-sidebar-page nav-link vp-sidebar-link vp-sidebar-page" href="/algorithm/observerpattern.html"><span class="font-icon icon fa-fw fa-sm fas fa-file" style=""></span>发布-订阅模式-实践<!----></a><ul class="vp-sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a aria-label="模板方法模式-实践" class="vp-link nav-link vp-sidebar-link vp-sidebar-page nav-link vp-sidebar-link vp-sidebar-page" href="/algorithm/templatepattern.html"><span class="font-icon icon fa-fw fa-sm fas fa-file" style=""></span>模板方法模式-实践<!----></a><ul class="vp-sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a aria-label="策略模式-实践" class="vp-link nav-link vp-sidebar-link vp-sidebar-page nav-link vp-sidebar-link vp-sidebar-page" href="/algorithm/strategypattern.html"><span class="font-icon icon fa-fw fa-sm fas fa-file" style=""></span>策略模式-实践<!----></a><ul class="vp-sidebar-sub-headers"></ul><!--]--></li></ul></section></li></ul><!--[--><!----><!--]--></aside><!--[--><main id="main-content" class="vp-page"><!--[--><!--[--><!----><!--]--><!----><nav class="vp-breadcrumb disable"></nav><div class="vp-page-title"><h1><span class="font-icon icon fa-fw fa-sm fas fa-file" style=""></span>代理模式-实践</h1><div class="page-info"><span class="page-author-info" aria-label="作者🖊" data-balloon-pos="down"><svg xmlns="http://www.w3.org/2000/svg" class="icon author-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="author icon"><path d="M649.6 633.6c86.4-48 147.2-144 147.2-249.6 0-160-128-288-288-288s-288 128-288 288c0 108.8 57.6 201.6 147.2 249.6-121.6 48-214.4 153.6-240 288-3.2 9.6 0 19.2 6.4 25.6 3.2 9.6 12.8 12.8 22.4 12.8h704c9.6 0 19.2-3.2 25.6-12.8 6.4-6.4 9.6-16 6.4-25.6-25.6-134.4-121.6-240-243.2-288z"></path></svg><span><span class="page-author-item">moonandcake</span></span><span property="author" content="moonandcake"></span></span><!----><span class="page-date-info" aria-label="写作日期📅" data-balloon-pos="down"><svg xmlns="http://www.w3.org/2000/svg" class="icon calendar-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="calendar icon"><path d="M716.4 110.137c0-18.753-14.72-33.473-33.472-33.473-18.753 0-33.473 14.72-33.473 33.473v33.473h66.993v-33.473zm-334.87 0c0-18.753-14.72-33.473-33.473-33.473s-33.52 14.72-33.52 33.473v33.473h66.993v-33.473zm468.81 33.52H716.4v100.465c0 18.753-14.72 33.473-33.472 33.473a33.145 33.145 0 01-33.473-33.473V143.657H381.53v100.465c0 18.753-14.72 33.473-33.473 33.473a33.145 33.145 0 01-33.473-33.473V143.657H180.6A134.314 134.314 0 0046.66 277.595v535.756A134.314 134.314 0 00180.6 947.289h669.74a134.36 134.36 0 00133.94-133.938V277.595a134.314 134.314 0 00-133.94-133.938zm33.473 267.877H147.126a33.145 33.145 0 01-33.473-33.473c0-18.752 14.72-33.473 33.473-33.473h736.687c18.752 0 33.472 14.72 33.472 33.473a33.145 33.145 0 01-33.472 33.473z"></path></svg><span><!----></span><meta property="datePublished" content="2023-12-11T00:00:00.000Z"></span><!----><span class="page-reading-time-info" aria-label="阅读时间⌛" data-balloon-pos="down"><svg xmlns="http://www.w3.org/2000/svg" class="icon timer-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="timer icon"><path d="M799.387 122.15c4.402-2.978 7.38-7.897 7.38-13.463v-1.165c0-8.933-7.38-16.312-16.312-16.312H256.33c-8.933 0-16.311 7.38-16.311 16.312v1.165c0 5.825 2.977 10.874 7.637 13.592 4.143 194.44 97.22 354.963 220.201 392.763-122.204 37.542-214.893 196.511-220.2 389.397-4.661 5.049-7.638 11.651-7.638 19.03v5.825h566.49v-5.825c0-7.379-2.849-13.981-7.509-18.9-5.049-193.016-97.867-351.985-220.2-389.527 123.24-37.67 216.446-198.453 220.588-392.892zM531.16 450.445v352.632c117.674 1.553 211.787 40.778 211.787 88.676H304.097c0-48.286 95.149-87.382 213.728-88.676V450.445c-93.077-3.107-167.901-81.297-167.901-177.093 0-8.803 6.99-15.793 15.793-15.793 8.803 0 15.794 6.99 15.794 15.793 0 80.261 63.69 145.635 142.01 145.635s142.011-65.374 142.011-145.635c0-8.803 6.99-15.793 15.794-15.793s15.793 6.99 15.793 15.793c0 95.019-73.789 172.82-165.96 177.093z"></path></svg><span>大约 5 分钟</span><meta property="timeRequired" content="PT5M"></span><!----><!----></div><hr></div><div class="toc-place-holder"><aside id="toc"><!--[--><!----><!--]--><div class="toc-header">此页内容<button type="button" class="print-button" title="打印"><svg xmlns="http://www.w3.org/2000/svg" class="icon print-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="print icon"><path d="M819.2 364.8h-44.8V128c0-17.067-14.933-32-32-32H281.6c-17.067 0-32 14.933-32 32v236.8h-44.8C145.067 364.8 96 413.867 96 473.6v192c0 59.733 49.067 108.8 108.8 108.8h44.8V896c0 17.067 14.933 32 32 32h460.8c17.067 0 32-14.933 32-32V774.4h44.8c59.733 0 108.8-49.067 108.8-108.8v-192c0-59.733-49.067-108.8-108.8-108.8zM313.6 160h396.8v204.8H313.6V160zm396.8 704H313.6V620.8h396.8V864zM864 665.6c0 25.6-19.2 44.8-44.8 44.8h-44.8V588.8c0-17.067-14.933-32-32-32H281.6c-17.067 0-32 14.933-32 32v121.6h-44.8c-25.6 0-44.8-19.2-44.8-44.8v-192c0-25.6 19.2-44.8 44.8-44.8h614.4c25.6 0 44.8 19.2 44.8 44.8v192z"></path></svg></button></div><div class="toc-wrapper"><ul class="toc-list"><!--[--><li class="toc-item"><a class="vp-link toc-link level2 toc-link level2" href="#代理模式">代理模式</a></li><!----><!--]--><!--[--><li class="toc-item"><a class="vp-link toc-link level2 toc-link level2" href="#前端代理模式应用">前端代理模式应用</a></li><li><ul class="toc-list"><!--[--><li class="toc-item"><a class="vp-link toc-link level3 toc-link level3" href="#请求代理">请求代理</a></li><!----><!--]--><!--[--><li class="toc-item"><a class="vp-link toc-link level3 toc-link level3" href="#图片懒加载">图片懒加载</a></li><!----><!--]--><!--[--><li class="toc-item"><a class="vp-link toc-link level3 toc-link level3" href="#数据缓存代理">数据缓存代理</a></li><!----><!--]--><!--[--><li class="toc-item"><a class="vp-link toc-link level3 toc-link level3" href="#es6的proxy">ES6的Proxy</a></li><!----><!--]--></ul></li><!--]--><!--[--><li class="toc-item"><a class="vp-link toc-link level2 toc-link level2" href="#总结">总结</a></li><!----><!--]--></ul><div class="toc-marker" style="top:-1.7rem;"></div></div><!--[--><!----><!--]--></aside></div><!--[--><!----><!--]--><div class="theme-hope-content"><!-- more --><h2 id="代理模式" tabindex="-1"><a class="header-anchor" href="#代理模式" aria-hidden="true">#</a> 代理模式</h2><p>定义：为一个对象提供一个代用品或占位符，以便控制对它的访问</p><h2 id="前端代理模式应用" tabindex="-1"><a class="header-anchor" href="#前端代理模式应用" aria-hidden="true">#</a> 前端代理模式应用</h2><h3 id="请求代理" tabindex="-1"><a class="header-anchor" href="#请求代理" aria-hidden="true">#</a> 请求代理</h3><p>当发起请求时，可以代理请求在转发请求之前执行一些额外的操作，或者在转发请求之后做一些额外的操作</p><pre><code>// 定义目标对象接口
+class Subject {
+    request() {
+        // 处理请求
+    }
+}
+// 定义具体目标对象类
+class RealSubject extends Subject {
+    request() {
+        // 处理真实请求
+    }
+}
+// 定义代理对象类
+class Proxy extends Subject {
+    constructor() {
+        super();
+        this.realSubject = new RealSubject();
+    }
+    request() {
+        // 在转发请求之前或之后执行一些额外操作
+        this.preRequest();
+        this.realSubject.request();
+        this.postRequest();
+    }
+    preRequest() {
+        // 在转发请求之前执行一些额外操作
+    }
+    postRequest() {
+        // 在转发请求之后执行一些额外操作
+    }
+}
+// 使用示例
+const proxy = new Proxy();
+proxy.request(); // 通过代理对象发送请求，并在转发前后执行额外操作
+</code></pre><h3 id="图片懒加载" tabindex="-1"><a class="header-anchor" href="#图片懒加载" aria-hidden="true">#</a> 图片懒加载</h3><p>当页面中存在大量图片时，为了提高页面加载速度和性能，可以使用图片懒加载技术。在这种情况下，可以使用代理模式，在图片未进入可视区域之前，使用占位图或者小图进行替换，在图片进入可视区域时再加载真实图片。</p><pre><code>// 定义目标对象
+class ImageLoader {
+    constructor(imageElement) {
+        this.imageElement = imageElement;
+        this.realImage = new Image();
+        this.realImage.onload = () =&gt; {
+        this.imageElement.src = this.realImage.src;
+        };
+    }
+    load() {
+        // 模拟从服务器加载真实图片的操作
+        console.log(&quot;Loading real image...&quot;);
+        this.realImage.src = this.imageElement.dataset.src;
+    }
+}
+// 定义图片懒加载代理对象
+class LazyImageProxy {
+    constructor(imageElement) {
+        this.imageElement = imageElement;
+    }
+    load() {
+        if (this.imageElement.getBoundingClientRect().top &lt; window.innerHeight) {
+        const imageLoader = new ImageLoader(this.imageElement);
+        imageLoader.load();
+        }
+    }
+}
+// 使用示例
+const lazyImages = document.querySelectorAll(&quot;.lazy-image&quot;);
+lazyImages.forEach((image) =&gt; {
+    const lazyImageProxy = new LazyImageProxy(image);
+    lazyImageProxy.load();
+});
+</code></pre><p>通过使用代理模式实现图片懒加载，可以减少页面加载时对大量图片的请求，提高页面加载速度和性能。同时，代理对象还可以隐藏目标对象的具体实现细节，保护目标对象的安全性。</p><h3 id="数据缓存代理" tabindex="-1"><a class="header-anchor" href="#数据缓存代理" aria-hidden="true">#</a> 数据缓存代理</h3><p>为了减少网络请求和提高页面加载速度，可以使用代理模式在客户端或服务端缓存数据。当客户端请求数据时，代理对象首先检查缓存中是否存在数据，如果存在则直接返回缓存数据，否则再向目标对象请求数据并将其缓存起来。</p><pre><code>// 定义目标对象
+class DataService {
+fetchData(key) {
+    // 模拟从服务器获取数据的操作
+    console.log(&quot;Fetching data from server...&quot;);
+    return `Data for ${key}`;
+}
+}
+// 定义数据缓存代理对象
+class DataCacheProxy {
+constructor() {
+    this.cache = {};
+    this.dataService = new DataService();
+}
+fetchData(key) {
+    if (this.cache[key]) {
+    console.log(&quot;Fetching data from cache...&quot;);
+    return this.cache[key];
+    } else {
+    const data = this.dataService.fetchData(key);
+    this.cache[key] = data;
+    return data;
+    }
+}
+}
+// 使用示例
+const proxy = new DataCacheProxy();
+console.log(proxy.fetchData(&quot;example&quot;)); // 从服务器获取数据，并缓存起来
+console.log(proxy.fetchData(&quot;example&quot;)); // 从缓存中获取数据
+</code></pre><p>通过使用代理模式实现数据缓存代理，可以减少对服务器的请求次数，提高数据访问的性能和效率。同时，代理对象还可以隐藏目标对象的具体实现细节，保护目标对象的安全性。</p><h3 id="es6的proxy" tabindex="-1"><a class="header-anchor" href="#es6的proxy" aria-hidden="true">#</a> ES6的Proxy</h3><p>S6引入了Proxy对象，它是一种代理模式的实现，用于拦截并自定义对象的操作。Proxy对象可以拦截并重定义JavaScript对象的底层操作，例如属性访问、赋值、函数调用等。通过使用Proxy对象，我们可以在目标对象上添加额外的行为或修改默认行为。</p><pre><code>const proxy = new Proxy(target, handler);
+</code></pre><ul><li>target：要代理的目标对象。</li><li>handler：一个包含各种拦截操作的处理程序对象。</li></ul><p>下面是一些常见的Proxy拦截操作：</p><p>1.get(target, property, receiver)：拦截对目标对象属性的读取操作。 2.set(target, property, value, receiver)：拦截对目标对象属性的赋值操作。 3.apply(target, thisArg, argumentsList)：拦截对目标函数的调用操作。 4.has(target, property)：拦截in运算符判断属性是否存在于目标对象中。 5.deleteProperty(target, property)：拦截对目标对象属性的删除操作。</p><pre><code>const user = {
+name: &quot;John&quot;,
+isAdmin: false,
+};
+
+const userProxy = new Proxy(user, {
+get(target, property) {
+    if (property === &quot;isAdmin&quot;) {
+    return false; // 拒绝访问isAdmin属性
+    }
+    return target[property];
+},
+set(target, property, value) {
+    if (property === &quot;isAdmin&quot;) {
+    throw new Error(&quot;Cannot modify isAdmin property.&quot;);
+    }
+    target[property] = value;
+    return true;
+},
+});
+
+console.log(userProxy.name); // 输出: &quot;John&quot;
+console.log(userProxy.isAdmin); // 输出: false
+userProxy.isAdmin = true; // 抛出错误: &quot;Cannot modify isAdmin property.&quot;
+</code></pre><p>ES6 Proxy提供了强大的拦截能力，可以用于实现数据校验、权限控制、数据劫持等功能。然而，需要注意使用Proxy时要考虑性能问题，因为每个操作都会经过拦截处理。</p><h2 id="总结" tabindex="-1"><a class="header-anchor" href="#总结" aria-hidden="true">#</a> 总结</h2><p>优缺点</p><ul><li>优点</li></ul><p>1.代理模式可以实现对目标对象的访问控制，可以在不改变目标对象的情况下增加额外的功能。 2.通过使用代理模式，可以实现客户端与目标对象之间的解耦，提高代码的可维护性和可扩展性。 3.代理模式可以隐藏目标对象的具体实现细节，保护目标对象的安全性。</p><ul><li>缺点</li></ul><p>1.代理模式增加了系统的复杂性，引入了额外的代理对象。 2.在一些情况下，代理模式可能会导致请求的延迟，因为请求需要经过代理对象转发。</p><p>代理模式是一种常用的设计模式，它通过创建一个代理对象来控制对另一个对象的访问。通过使用代理模式，可以实现对目标对象的访问控制、增加额外功能、解耦客户端与目标对象等。然而，需要根据具体情况权衡使用代理模式所带来的优缺点。</p></div><!--[--><!----><!--]--><footer class="page-meta"><div class="meta-item edit-link"><a href="https://github.com/vuepress-theme-hope/vuepress-theme-hope/edit/main/src/algorithm/proxypattern.md" rel="noopener noreferrer" target="_blank" aria-label="编辑此页" class="nav-link label"><!--[--><svg xmlns="http://www.w3.org/2000/svg" class="icon edit-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="edit icon"><path d="M430.818 653.65a60.46 60.46 0 0 1-50.96-93.281l71.69-114.012 7.773-10.365L816.038 80.138A60.46 60.46 0 0 1 859.225 62a60.46 60.46 0 0 1 43.186 18.138l43.186 43.186a60.46 60.46 0 0 1 0 86.373L588.879 565.55l-8.637 8.637-117.466 68.234a60.46 60.46 0 0 1-31.958 11.229z"></path><path d="M728.802 962H252.891A190.883 190.883 0 0 1 62.008 771.98V296.934a190.883 190.883 0 0 1 190.883-192.61h267.754a60.46 60.46 0 0 1 0 120.92H252.891a69.962 69.962 0 0 0-69.098 69.099V771.98a69.962 69.962 0 0 0 69.098 69.098h475.911A69.962 69.962 0 0 0 797.9 771.98V503.363a60.46 60.46 0 1 1 120.922 0V771.98A190.883 190.883 0 0 1 728.802 962z"></path></svg><!--]-->编辑此页<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></div><div class="meta-item git-info"><div class="update-time"><span class="label">上次编辑于: </span><!----></div><div class="contributors"><span class="label">贡献者: </span><!--[--><!--[--><span class="contributor" title="email: 1064446256@qq.com">孙海波</span><!--]--><!--]--></div></div></footer><nav class="vp-page-nav"><!----><a aria-label="前端设计模式" class="vp-link nav-link next nav-link next" href="/algorithm/designmode.html"><div class="hint">下一页<span class="arrow end"></span></div><div class="link">前端设计模式<span class="font-icon icon fa-fw fa-sm fas fa-file" style=""></span></div></a></nav><!----><!--[--><!----><!--]--><!--]--></main><!--]--><footer class="vp-footer-wrapper"><div class="vp-footer">到底了！</div><!----></footer></div><!--]--><!----><!--]--></div>
+    <script type="module" src="/assets/app-dnYTmmMA.js" defer></script>
+  </body>
+</html>
