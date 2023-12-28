@@ -3,7 +3,6 @@ import theme from "./theme.js";
 
 export default defineUserConfig({
   base: "/vitepress-blog/",
-
   lang: "zh-CN",
   title: "moonandcake",
   description: "",
