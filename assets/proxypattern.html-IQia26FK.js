@@ -1,4 +1,4 @@
-import{_ as e}from"./plugin-vue_export-helper-x3n3nnut.js";import{o as n,c as t,e as r,f as a}from"./app-VG2EntIV.js";const o={},s=a(`<h2 id="代理模式" tabindex="-1"><a class="header-anchor" href="#代理模式" aria-hidden="true">#</a> 代理模式</h2><p>定义：为一个对象提供一个代用品或占位符，以便控制对它的访问</p><h2 id="前端代理模式应用" tabindex="-1"><a class="header-anchor" href="#前端代理模式应用" aria-hidden="true">#</a> 前端代理模式应用</h2><h3 id="请求代理" tabindex="-1"><a class="header-anchor" href="#请求代理" aria-hidden="true">#</a> 请求代理</h3><p>当发起请求时，可以代理请求在转发请求之前执行一些额外的操作，或者在转发请求之后做一些额外的操作</p><pre><code>// 定义目标对象接口
+import{_ as e}from"./plugin-vue_export-helper-x3n3nnut.js";import{o as n,c as t,e as r,f as a}from"./app-ePC1FRNS.js";const o={},s=a(`<h2 id="代理模式" tabindex="-1"><a class="header-anchor" href="#代理模式" aria-hidden="true">#</a> 代理模式</h2><p>定义：为一个对象提供一个代用品或占位符，以便控制对它的访问</p><h2 id="前端代理模式应用" tabindex="-1"><a class="header-anchor" href="#前端代理模式应用" aria-hidden="true">#</a> 前端代理模式应用</h2><h3 id="请求代理" tabindex="-1"><a class="header-anchor" href="#请求代理" aria-hidden="true">#</a> 请求代理</h3><p>当发起请求时，可以代理请求在转发请求之前执行一些额外的操作，或者在转发请求之后做一些额外的操作</p><pre><code>// 定义目标对象接口
 class Subject {
     request() {
         // 处理请求
